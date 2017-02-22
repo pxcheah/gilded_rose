@@ -5,7 +5,7 @@ describe "#update_quality" do
   context "with a single item" do
     let(:initial_sell_in) { 5 }
     let(:initial_quality) { 10 }
-    let(:name) { "item" }
+    let(:name) { "Conjured item" }
     let(:item) { Item.new(name, initial_sell_in, initial_quality) }
 
     before { update_quality([item]) }
@@ -22,6 +22,7 @@ describe "#update_quality" do
       [
         Item.new("NORMAL ITEM", 5, 10),
         Item.new("Aged Brie", 3, 10),
+        Item.new("Conjured item", 6, 3)
       ]
     }
 

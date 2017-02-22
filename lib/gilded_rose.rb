@@ -1,39 +1,19 @@
 def update_quality(items)
   items.each do |item|
     puts "Name: #{item.name}, Quality: #{item.quality}, Sell in: #{item.sell_in}"
-    ItemUpdater.new.update(item)
-    # skip legendary item
-    # return if item.name == 'Sulfuras, Hand of Ragnaros'
 
-    # decrease sell_in value
-    # item.sell_in -= 1
-
-    # adjust quality based on sell_in
-    # if item.name == 'Aged Brie'
-    #   increase_quality
-    #   if item.sell_in < 0
-    #     increase_quality
-    #   end
-    # elsif item.name == 'Backstage passes to a TAFKAL80ETC concert'
-    #   increase_quality
-    #   if item.sell_in < 10
-    #     increase_quality
-    #   end
-    #   if item.sell_in < 5
-    #     increase_quality
-    #   end
-    #   if item.sell_in < 0
-    #     item.quality -= item.quality
-    #   end
-    # elsif item.name.include? 'Conjured'
-    #   decrease_quality
-    #   decrease_quality
-    # else
-    #   decrease_quality
-    #   if item.sell_in < 0
-    #     decrease_quality
-    #   end
-    # end
+    case item.name
+    when "Aged Brie"
+      AgedBrieUpdater.new.update(item)
+    when "Backstage passes to a TAFKAL80ETC concert"
+      BackstagePassUpdater.new.update(item)
+    when /^Conjured/
+      ConjuredItemUpdater.new.update(item)
+    when "Sulfuras, Hand of Ragnaros"
+      LegendaryItemUpdater.new.update(item)
+    else
+      ItemUpdater.new.update(item)
+    end
   end
 end
 
@@ -59,6 +39,47 @@ class ItemUpdater
 
   def update_sell_in(item)
     item.sell_in -= 1
+  end
+end
+
+class LegendaryItemUpdater < ItemUpdater
+  def update_quality(item)
+  end
+  def update_sell_in(item)
+  end
+end
+
+class AgedBrieUpdater < ItemUpdater
+  def update_quality(item)
+    if item.sell_in <= 0
+      change_quality(item, 2)
+    else
+      change_quality(item, 1)
+    end
+  end
+end
+
+class BackstagePassUpdater < ItemUpdater
+  def update_quality(item)
+    if item.sell_in > 10
+      change_quality(item, 1)
+    elsif item.sell_in > 5
+      change_quality(item, 2)
+    elsif item.sell_in > 0
+      change_quality(item, 3)
+    else
+      item.quality = 0
+    end
+  end
+end
+
+class ConjuredItemUpdater < ItemUpdater
+  def update_quality(item)
+    if item.sell_in <= 0
+      change_quality(item, -4)
+    else
+      change_quality(item, -2)
+    end
   end
 end
 
