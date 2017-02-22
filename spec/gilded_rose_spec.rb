@@ -11,7 +11,7 @@ describe "#update_quality" do
     before { update_quality([item]) }
 
     it "your specs here" do
-      pending
+
     end
   end
 
@@ -26,7 +26,7 @@ describe "#update_quality" do
     before { update_quality(items) }
 
     it "your specs here" do
-      pending
+
     end
   end
 end
