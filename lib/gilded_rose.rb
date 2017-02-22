@@ -1,7 +1,5 @@
 def update_quality(items)
   items.each do |item|
-    puts "Name: #{item.name}, Quality: #{item.quality}, Sell in: #{item.sell_in}"
-
     case item.name
     when "Aged Brie"
       AgedBrieUpdater.new.update(item)
