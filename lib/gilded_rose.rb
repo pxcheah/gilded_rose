@@ -23,6 +23,9 @@ def update_quality(items)
       if item.sell_in < 0
         item.quality -= item.quality
       end
+    elsif item.name.include? 'Conjured'
+      decrease_quality
+      decrease_quality
     else
       decrease_quality
       if item.sell_in < 0
