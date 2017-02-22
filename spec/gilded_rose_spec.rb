@@ -11,7 +11,9 @@ describe "#update_quality" do
     before { update_quality([item]) }
 
     it "your specs here" do
-
+      5.times do
+        update_quality([item])
+      end
     end
   end
 
