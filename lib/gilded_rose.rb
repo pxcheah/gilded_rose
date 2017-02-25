@@ -12,6 +12,8 @@ def update_quality(items)
     else
       ItemUpdater.new.update(item)
     end
+
+    # puts "Name: #{item.name}, Quality: #{item.quality}, Sell in: #{item.sell_in}"
   end
 end
 
